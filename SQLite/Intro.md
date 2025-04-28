@@ -22,3 +22,19 @@ To use the sqlite3 module - import it:
 import sqlite3
 ```
 
+To create the DB in the same dir as the script executed run:
+```
+conn = sqlite3.connect('sql_new_db.db')
+```
+
+To create the BD in the specifide dir location run:
+```
+conn = sqlite3.connect('D:\sqlite\sql_new_db.db')
+```
+
+To create DB in RAM:
+```
+conn = sqlite3.connect(':memory:')
+```
+
+_sqlite3.connect_ creates the new DB if it was not created before.
