@@ -33,17 +33,20 @@ _Inserting data into Table_ with _INSERT INTO_ statement using named parameters 
 * first option:
 
 ```
-data = {"id": 1, "full_name": "First_name Last_name", "email": "info@job.com", "summary": "Description about job experience and skills"}
+data = {"id": 1,
+        "full_name": "First_name Last_name",
+        "email": "info@job.com",
+        "summary": "Description about job experience and skills"}
 
-c.execute("INSERT INTO job_application (id, full_name, email, summary)
-VALUES (:id, :full_name, :email, :summary)", data)
+c.execute("INSERT INTO job_application (id, full_name, email, summary)"
+          "VALUES (:id, :full_name, :email, :summary)", data)
 ```
 
 * second option:
 
 ```
-c.execute("INSERT INTO job_application
-VALUES (:id, :full_name, :email, :summary)", data)
+c.execute("INSERT INTO job_application"
+          "VALUES (:id, :full_name, :email, :summary)", data)
 ```
 
 Confirm changes of trusaction:
