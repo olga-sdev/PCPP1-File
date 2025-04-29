@@ -49,6 +49,22 @@ c.execute("INSERT INTO job_application"
           "VALUES (:id, :full_name, :email, :summary)", data)
 ```
 
+* third oprion for execution more then one raw data with _executemany_ method:
+
+```
+data = [{"id": 2,
+         "full_name": "First_name Last_name 2",
+         "email": "info2@job.com",
+         "summary": "Description2 about job experience and skills"},
+        {"id": 3,
+         "full_name": "First_name Last_name 3",
+         "email": "info3@job.com",
+         "summary": "Description3 about job experience and skills"}]
+
+c.executemany("INSERT INTO job_application (id, full_name, email, summary)"
+              "VALUES (:id, :full_name, :email, :summary)", data)
+```  
+
 Confirm changes of trusaction:
 ```
 conn.commit()
