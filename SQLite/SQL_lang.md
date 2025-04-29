@@ -97,12 +97,13 @@ for row in rows:
 ```
 
 * _fetchone_ -> gets next record:
+```
 c.execute('SELECT * FROM job_application')
 row = c.fetchone()
 print(row)  # Output: (1, 'First_name Last_name', 'info@job.com', 'Description about job experience and skills')
 row = c.fetchone()
 print(row)  # Output: (2, 'First_name Last_name 2', 'info2@job.com', 'Description2 about job experience and skills')
-
+```
 
 Close connection with DB:
 ```
