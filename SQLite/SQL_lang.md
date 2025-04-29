@@ -63,14 +63,50 @@ data = [{"id": 2,
 
 c.executemany("INSERT INTO job_application (id, full_name, email, summary)"
               "VALUES (:id, :full_name, :email, :summary)", data)
-```  
+```
 
 Confirm changes of trusaction:
 ```
 conn.commit()
 ```
 
+_Read_ data from table:
+
+* return all ids:
+```
+c.execute("SELECT id FROM job_application")
+```
+
+* return all raws:
+```
+c.execute("SELECT * FROM job_application")
+```
+
+* print data in terminal:
+```
+for row in c.execute('SELECT * FROM job_application'):
+    print(row)
+```
+
+* _fetchall_ method gets all records:
+```
+c.execute('SELECT * FROM job_application')
+rows = c.fetchall()
+for row in rows:
+    print(row)
+```
+
+* _fetchone_ -> gets next record:
+c.execute('SELECT * FROM job_application')
+row = c.fetchone()
+print(row)  # Output: (1, 'First_name Last_name', 'info@job.com', 'Description about job experience and skills')
+row = c.fetchone()
+print(row)  # Output: (2, 'First_name Last_name 2', 'info2@job.com', 'Description2 about job experience and skills')
+
+
 Close connection with DB:
 ```
 conn.close()
 ```
+
+
