@@ -105,6 +105,18 @@ row = c.fetchone()
 print(row)  # Output: (2, 'First_name Last_name 2', 'info2@job.com', 'Description2 about job experience and skills')
 ```
 
+_Update data_ securely in DB:
+```
+c.execute('UPDATE job_application SET email = ? WHERE id = ?', ('info1@job.com', 1))
+c.commit()
+```
+
+_Delete data_ from DB:
+```
+c.execute('DELETE FROM job_application WHERE id = ?', (1,))
+c.commit()
+```
+
 Close connection with DB:
 ```
 conn.close()
