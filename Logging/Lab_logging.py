@@ -1,0 +1,122 @@
+"""
+Objectives
+improving the student's skills in creating logs;
+improving the student's skills in creating their own handler and formatter.
+
+Scenario
+It's likely that the temperature of your phone battery can get pretty high.
+Check if that’s true. Write a program that will simulate the recording of battery temperatures with an interval of one minute.
+The simulation should contain 60 logs (the last hour).
+
+To simulate temperatures, use one of the available random functions in Python.
+Temperatures should be drawn in the range of 20–40 degrees Celsius, and then saved in the following format:
+
+LEVEL_NAME – TEMPERATURE_IN_CELSIUS UNIT => DEBUG – 20 C
+
+The drawn temperatures should be assigned to the appropriate level depending on their value:
+
+DEBUG = TEMPERATURE_IN_CELSIUS < 20
+WARNING = TEMPERATURE_IN_CELSIUS >= 30 AND TEMPERATURE_IN_CELSIUS <= 35
+CRITICAL = TEMPERATURE_IN_CELSIUS > 35
+
+Put all logs in the battery_temperature.log file. The task will be completed when you implement your own handler and formatter.
+"""
+
+import logging
+import random
+import time
+
+
+# setup logger, level and handler
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
+FORMAT = '%(name)s - %(levelname)s - %(asctime)s %(message)s'
+formatter = logging.Formatter(FORMAT)
+
+handler = logging.FileHandler('battery_temperature.log', mode='a')
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
+
+
+def get_temperature():
+    temperature = random.randint(20, 40)
+    if temperature < 30:
+        logger.debug(f'TEMPERATURE_IN_CELSIUS UNIT => {temperature}')
+    elif 30 <= temperature <= 35:
+        logger.warning(f'TEMPERATURE_IN_CELSIUS UNIT => {temperature}')
+    elif temperature > 35:
+        logger.critical(f'TEMPERATURE_IN_CELSIUS UNIT => {temperature}')
+
+
+if __name__ == "__main__":
+    for second in range(60): # generates 60 rows
+        time.sleep(2) # instead of every minute - 60 seconds for quick check
+        get_temperature() # call the function with logging
+
+
+"""
+Output:
+
+root - CRITICAL - 2025-05-09 13:20:32,523 TEMPERATURE_IN_CELSIUS UNIT => 36
+root - WARNING - 2025-05-09 13:20:34,524 TEMPERATURE_IN_CELSIUS UNIT => 31
+root - DEBUG - 2025-05-09 13:20:36,525 TEMPERATURE_IN_CELSIUS UNIT => 20
+root - WARNING - 2025-05-09 13:20:38,526 TEMPERATURE_IN_CELSIUS UNIT => 31
+root - CRITICAL - 2025-05-09 13:20:40,528 TEMPERATURE_IN_CELSIUS UNIT => 40
+root - DEBUG - 2025-05-09 13:20:42,528 TEMPERATURE_IN_CELSIUS UNIT => 29
+root - DEBUG - 2025-05-09 13:20:44,531 TEMPERATURE_IN_CELSIUS UNIT => 26
+root - CRITICAL - 2025-05-09 13:20:46,532 TEMPERATURE_IN_CELSIUS UNIT => 36
+root - WARNING - 2025-05-09 13:20:48,533 TEMPERATURE_IN_CELSIUS UNIT => 34
+root - DEBUG - 2025-05-09 13:20:50,534 TEMPERATURE_IN_CELSIUS UNIT => 24
+root - DEBUG - 2025-05-09 13:20:52,535 TEMPERATURE_IN_CELSIUS UNIT => 25
+root - DEBUG - 2025-05-09 13:20:54,536 TEMPERATURE_IN_CELSIUS UNIT => 26
+root - WARNING - 2025-05-09 13:20:56,537 TEMPERATURE_IN_CELSIUS UNIT => 33
+root - DEBUG - 2025-05-09 13:20:58,539 TEMPERATURE_IN_CELSIUS UNIT => 22
+root - WARNING - 2025-05-09 13:21:00,540 TEMPERATURE_IN_CELSIUS UNIT => 34
+root - DEBUG - 2025-05-09 13:21:02,540 TEMPERATURE_IN_CELSIUS UNIT => 26
+root - CRITICAL - 2025-05-09 13:21:04,541 TEMPERATURE_IN_CELSIUS UNIT => 36
+root - DEBUG - 2025-05-09 13:21:06,542 TEMPERATURE_IN_CELSIUS UNIT => 23
+root - WARNING - 2025-05-09 13:21:08,544 TEMPERATURE_IN_CELSIUS UNIT => 35
+root - WARNING - 2025-05-09 13:21:10,545 TEMPERATURE_IN_CELSIUS UNIT => 30
+root - WARNING - 2025-05-09 13:21:12,546 TEMPERATURE_IN_CELSIUS UNIT => 32
+root - DEBUG - 2025-05-09 13:21:14,547 TEMPERATURE_IN_CELSIUS UNIT => 24
+root - CRITICAL - 2025-05-09 13:21:16,548 TEMPERATURE_IN_CELSIUS UNIT => 37
+root - DEBUG - 2025-05-09 13:21:18,549 TEMPERATURE_IN_CELSIUS UNIT => 28
+root - WARNING - 2025-05-09 13:21:20,549 TEMPERATURE_IN_CELSIUS UNIT => 30
+root - DEBUG - 2025-05-09 13:21:22,550 TEMPERATURE_IN_CELSIUS UNIT => 29
+root - DEBUG - 2025-05-09 13:21:24,551 TEMPERATURE_IN_CELSIUS UNIT => 28
+root - WARNING - 2025-05-09 13:21:26,552 TEMPERATURE_IN_CELSIUS UNIT => 32
+root - CRITICAL - 2025-05-09 13:21:28,553 TEMPERATURE_IN_CELSIUS UNIT => 39
+root - DEBUG - 2025-05-09 13:21:30,553 TEMPERATURE_IN_CELSIUS UNIT => 21
+root - DEBUG - 2025-05-09 13:21:32,554 TEMPERATURE_IN_CELSIUS UNIT => 28
+root - DEBUG - 2025-05-09 13:21:34,556 TEMPERATURE_IN_CELSIUS UNIT => 20
+root - DEBUG - 2025-05-09 13:21:36,557 TEMPERATURE_IN_CELSIUS UNIT => 21
+root - DEBUG - 2025-05-09 13:21:38,557 TEMPERATURE_IN_CELSIUS UNIT => 28
+root - WARNING - 2025-05-09 13:21:40,559 TEMPERATURE_IN_CELSIUS UNIT => 32
+root - DEBUG - 2025-05-09 13:21:42,560 TEMPERATURE_IN_CELSIUS UNIT => 29
+root - DEBUG - 2025-05-09 13:21:44,560 TEMPERATURE_IN_CELSIUS UNIT => 28
+root - DEBUG - 2025-05-09 13:21:46,562 TEMPERATURE_IN_CELSIUS UNIT => 20
+root - WARNING - 2025-05-09 13:21:48,562 TEMPERATURE_IN_CELSIUS UNIT => 34
+root - WARNING - 2025-05-09 13:21:50,563 TEMPERATURE_IN_CELSIUS UNIT => 35
+root - DEBUG - 2025-05-09 13:21:52,563 TEMPERATURE_IN_CELSIUS UNIT => 23
+root - DEBUG - 2025-05-09 13:21:54,565 TEMPERATURE_IN_CELSIUS UNIT => 29
+root - DEBUG - 2025-05-09 13:21:56,566 TEMPERATURE_IN_CELSIUS UNIT => 28
+root - DEBUG - 2025-05-09 13:21:58,567 TEMPERATURE_IN_CELSIUS UNIT => 25
+root - WARNING - 2025-05-09 13:22:00,568 TEMPERATURE_IN_CELSIUS UNIT => 34
+root - WARNING - 2025-05-09 13:22:02,568 TEMPERATURE_IN_CELSIUS UNIT => 33
+root - DEBUG - 2025-05-09 13:22:04,570 TEMPERATURE_IN_CELSIUS UNIT => 26
+root - DEBUG - 2025-05-09 13:22:06,571 TEMPERATURE_IN_CELSIUS UNIT => 25
+root - WARNING - 2025-05-09 13:22:08,571 TEMPERATURE_IN_CELSIUS UNIT => 30
+root - DEBUG - 2025-05-09 13:22:10,572 TEMPERATURE_IN_CELSIUS UNIT => 23
+root - DEBUG - 2025-05-09 13:22:12,573 TEMPERATURE_IN_CELSIUS UNIT => 29
+root - WARNING - 2025-05-09 13:22:14,574 TEMPERATURE_IN_CELSIUS UNIT => 31
+root - DEBUG - 2025-05-09 13:22:16,575 TEMPERATURE_IN_CELSIUS UNIT => 29
+root - DEBUG - 2025-05-09 13:22:18,576 TEMPERATURE_IN_CELSIUS UNIT => 28
+root - DEBUG - 2025-05-09 13:22:20,577 TEMPERATURE_IN_CELSIUS UNIT => 21
+root - WARNING - 2025-05-09 13:22:22,578 TEMPERATURE_IN_CELSIUS UNIT => 31
+root - DEBUG - 2025-05-09 13:22:24,579 TEMPERATURE_IN_CELSIUS UNIT => 21
+root - WARNING - 2025-05-09 13:22:26,580 TEMPERATURE_IN_CELSIUS UNIT => 33
+root - DEBUG - 2025-05-09 13:22:28,581 TEMPERATURE_IN_CELSIUS UNIT => 28
+root - DEBUG - 2025-05-09 13:22:30,582 TEMPERATURE_IN_CELSIUS UNIT => 26
+"""
