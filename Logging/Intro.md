@@ -122,7 +122,7 @@ FORMAT = '%(name)s: %(levelname)s: %(asctime)s: %(message)s'
 logger = logging.getLogger()
 
 handler = logging.FileHandler('prod_handler.log', mode='a')
-handler.setLevel(logging.ERROR)
+logger.setLevel(logging.ERROR)
 
 formatter = logging.Formatter(FORMAT)
 handler.setFormatter(formatter)
