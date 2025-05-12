@@ -77,3 +77,20 @@ set-username
 set-password
 """
 ```
+
+To create new config file .ini:
+
+```
+import configparser
+
+
+config = configparser.ConfigParser()
+
+config['Database'] = {'host': 'localhost',
+                      'port': 443,
+                      'user': 'set-username',
+                      'password': 'set-password'}
+
+with open('config_new.ini', 'w') as config_file:
+    config.write(config_file)
+```
