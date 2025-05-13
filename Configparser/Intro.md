@@ -94,3 +94,19 @@ config['Database'] = {'host': 'localhost',
 with open('config_new.ini', 'w') as config_file:
     config.write(config_file)
 ```
+
+_Interpolating values_ -> reference other values dynamically (exanple: %(base_path)s/music)
+Interpolating values is a kind of abstraction of the values.
+
+Interpolation methods:
+* BasicInterpolation (default) -> %(key)s syntax.
+* ExtendedInterpolation -> ${section:key}.
+* NoInterpolation.
+
+```
+[Database]
+host = localhost
+port = 443
+user = set-username
+password = set-password
+connection_string = mongodb://%(user)s:%(password)s%(host)s:%(port)s/mydb
